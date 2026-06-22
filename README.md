@@ -22,9 +22,6 @@ The application maintains the graph entirely in memory for fast traversal and lo
 * Return next-level transactions (transactions from direct children)
 * Detect root and leaf nodes
 * Gracefully handle orphan nodes (missing parent)
-
-### Bonus Features
-
 * Depth-limited subtree traversal
 * Recursive children tree generation
 * Cycle detection using visited nodes
@@ -38,9 +35,6 @@ The application maintains the graph entirely in memory for fast traversal and lo
 * Java 17+
 * Spring Boot 3.x
 * Maven
-* Jackson
-* Lombok
-* JUnit 5
 
 ---
 
@@ -52,15 +46,16 @@ src
 │   └── GraphController
 ├── service
 │   ├── GraphService
-│   └── GraphServiceImpl
+│   └── GraphLoaderService
 ├── repository
 │   └── GraphRepository
 ├── model
 │   ├── GraphNode
 │   ├── Transaction
 │   └── DTOs
-├── loader
-│   └── GraphDataLoader
+├── validator
+├── exception
+├── constant
 └── resources
     └── transactions-graph-nodes.json
 ```
@@ -215,7 +210,7 @@ Each level contains:
   "level": 0,
   "nodeCount": 1,
   "transactionCount": 5,
-  "totalAmount": 12500.00
+  "totalTxAmount": 12500.00
 }
 ```
 
