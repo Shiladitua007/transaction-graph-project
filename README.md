@@ -307,14 +307,3 @@ Run all tests:
 ```bash
 mvn test
 ```
-
----
-
-## Future Improvements
-
-* Cache aggregate calculations
-* Graph validation during startup
-* H2 persistence option
-* Graph visualization endpoint
-* OpenAPI / Swagger integration
-* Distributed cache support
