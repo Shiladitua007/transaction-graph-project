@@ -76,24 +76,12 @@ Build lookup maps.
 Map<String, GraphNode> nodeById
 ```
 
-Complexity:
-
-```text
-Lookup = O(1)
-```
-
 ---
 
 ### Children Index
 
 ```java
 Map<String, List<GraphNode>> childrenByParentId
-```
-
-Complexity:
-
-```text
-Get Children = O(1)
 ```
 
 ---
@@ -148,12 +136,6 @@ level = 0
 
 Node becomes root-like.
 
-### Complexity
-
-```text
-O(height)
-```
-
 ---
 
 # 6. Parent Chain Construction
@@ -185,12 +167,6 @@ Traverse upward
 Reverse list
 ```
 
-Complexity:
-
-```text
-O(height)
-```
-
 ---
 
 # 7. Direct Children Retrieval
@@ -199,12 +175,6 @@ Lookup:
 
 ```java
 childrenByParentId.get(nodeId)
-```
-
-Complexity:
-
-```text
-O(1)
 ```
 
 excluding output size.
@@ -263,15 +233,6 @@ or
 visited.contains(nodeId)
 ```
 
----
-
-## Complexity
-
-```text
-O(V + E)
-```
-
-within requested depth.
 
 ---
 
@@ -316,57 +277,7 @@ Metrics:
 
 * nodeCount
 * transactionCount
-* totalAmount
-
----
-
-## Traversal Strategy
-
-Breadth First Search (BFS)
-
-Reason:
-
-* Natural level grouping
-* Single traversal
-* Easy aggregation
-
----
-
-## BFS Flow
-
-```text
-Queue
- |
- N1
- |
- N2 N3
- |
- N4 N5
-```
-
-For every dequeued node:
-
-```java
-aggregate[level].nodeCount++;
-aggregate[level].transactionCount+=...
-aggregate[level].totalAmount+=...
-```
-
----
-
-## Complexity
-
-```text
-Time: O(V + E)
-
-Space: O(W)
-```
-
-Where:
-
-```text
-W = maximum width of tree
-```
+* totalTxAmount
 
 ---
 
@@ -397,92 +308,4 @@ Returns:
 
 ```http
 400 BAD REQUEST
-```
-
----
-
-# 12. Design Decisions
-
-## Why In-Memory Storage?
-
-Advantages:
-
-* Fast lookup
-* No database dependency
-* Simplified deployment
-* Ideal for static dataset
-
----
-
-## Why Map Indexes?
-
-Without indexes:
-
-```text
-Find node = O(N)
-```
-
-With indexes:
-
-```text
-Find node = O(1)
-```
-
----
-
-## Why BFS For Aggregation?
-
-Aggregation requires grouping by level.
-
-BFS naturally processes nodes level-by-level.
-
----
-
-## Why DFS For Children Tree?
-
-DFS provides:
-
-* Simple recursive implementation
-* Natural nested structure generation
-* Easy depth limiting
-
----
-
-# 13. Scalability Considerations
-
-Current:
-
-```text
-Single JVM
-In-memory graph
-```
-
-Future Enhancements:
-
-* External database
-* Redis cache
-* Distributed graph storage
-* Parallel subtree aggregation
-* Graph validation service
-* Incremental graph updates
-
----
-
-# 14. Complexity Summary
-
-| Operation         | Complexity |
-| ----------------- | ---------- |
-| Node Lookup       | O(1)       |
-| Children Lookup   | O(1)       |
-| Parent Chain      | O(H)       |
-| Level Calculation | O(H)       |
-| DFS Tree Build    | O(V+E)     |
-| BFS Aggregation   | O(V+E)     |
-
-Where:
-
-```text
-H = Tree Height
-V = Nodes
-E = Edges
 ```
